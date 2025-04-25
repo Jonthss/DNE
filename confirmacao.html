@@ -13,6 +13,25 @@
     <link rel="apple-touch-icon" href="images/loco.webp">
 </head>
 <body>
+
+    <div class="top-bar">
+        <div class="logo">
+            <img src="images/dnee.jpg" alt="Logo">
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">
+            ☰
+        </div>
+        <div class="menu-slide" id="menu">
+            <div class="close-btn" onclick="toggleMenu()">×</div>
+            <ul>
+                <li><a href="index.html">Carteira</a></li>
+                <li><a href="confirmacao.html">Confirmação</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Ajuda</a></li>
+            </ul>
+        </div>
+    </div>
+
     <main class="container">
         <section class="section">
             <h2>DADOS ESTUDANTIS</h2>
@@ -55,4 +74,10 @@
         </section>
     </main>
 </body>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("show");
+        }
+    </script>
 </html>
