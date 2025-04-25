@@ -3,8 +3,8 @@
     "short_name": "DNE",
     "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ffffff",
+    "background_color": "#a0d4bc",
+    "theme_color": "#a0d4bc",
     "icons": [
       {
         "src": "images/loco.webp",
