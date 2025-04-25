@@ -59,6 +59,14 @@ div.content {
     border: 2px solid #a0d4bc; /* Borda verde clara */
     width: 420px;
     row-gap: 0; 
+    background-image: repeating-linear-gradient(
+        45deg, /* ângulo da linha: 45 graus (diagonal) */
+        rgba(0, 0, 0, 0.05) 0px, /* linha bem clarinha */
+        rgba(0, 0, 0, 0.05) 1px, /* linha de 1px */
+        transparent 1px,
+        transparent 6px /* espaçamento pequeno para muitas linhas */
+    );
+    background-size: 6px 6px; /* controla a repetição */
 }
 
 div.content p {
@@ -78,7 +86,7 @@ footer {
 
 footer .buton button {
     all: unset;
-    background-color: aliceblue;
+    background: linear-gradient(to right, #9c439a, #4057a7);
     padding: 15px 25px;
     font-size: 25px;
     border-radius: 15px;
@@ -88,7 +96,7 @@ footer .buton button {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    color: rgb(0, 0, 0); 
+    color: rgb(255, 255, 255); 
 }
 
 
