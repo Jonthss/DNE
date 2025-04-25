@@ -73,15 +73,17 @@ footer {
 }
 
 footer .buton button {
+    all: unset;
     background-color: aliceblue;
-    border: none;
     padding: 15px 25px;
     font-size: 20px;
     border-radius: 15px;
     cursor: pointer;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 
