@@ -57,8 +57,12 @@ div.content {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: 2px solid #a0d4bc; /* Borda verde clara */
-    font-size: 20px;
     width: 420px;
+    row-gap: 0; 
+}
+
+div.content p {
+    margin: 10px 0; /* diminui o espaço vertical entre os parágrafos */
 }
 
 div.content img {
@@ -76,7 +80,7 @@ footer .buton button {
     all: unset;
     background-color: aliceblue;
     padding: 15px 25px;
-    font-size: 20px;
+    font-size: 25px;
     border-radius: 15px;
     cursor: pointer;
     margin-bottom: 20px;
@@ -84,7 +88,7 @@ footer .buton button {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    color: black; 
+    color: rgb(0, 0, 0); 
 }
 
 
