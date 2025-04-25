@@ -13,11 +13,7 @@ main {
 }
 
 
-header,
-div.fotos,
-div.content {
-    width: 100%;
-}
+
 
 body {
     background-color: #a0d4bc;
@@ -29,7 +25,7 @@ header {
     padding: 20px;
     display: flex;
     justify-content: space-between;
-    width: 600px;
+   
 }
 
 div.image img {
@@ -57,7 +53,7 @@ div.content {
     background-color: aliceblue;
     border-radius: 15px;
     margin-left: 20px;
-    margin-right: 40px;
+    margin-right: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: 2px solid #a0d4bc; /* Borda verde clara */
@@ -72,17 +68,17 @@ div.content img {
 }
 
 /* Estilos para dispositivos móveis */
-@media (max-width: 800px) {
+@media (max-width: 1500px) {
     header {
         display: flex;
         justify-content: space-between;
-        margin-left: 30px;
-        margin-right: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
         margin-bottom: 20px;
     }
 
     header img {
-        width: 280px; /* Ajuste para telas menores */
+        width: 250px; /* Ajuste para telas menores */
         height: auto;   
     }
 
@@ -94,7 +90,7 @@ div.content img {
     }
 
     div.qrcode img {
-        width: 100%; /* Imagem ocupa toda a largura da tela */
+        width: 90%; /* Imagem ocupa toda a largura da tela */
         height: auto;
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
