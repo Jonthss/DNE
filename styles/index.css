@@ -57,7 +57,7 @@ div.content {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: 2px solid #a0d4bc; /* Borda verde clara */
-    font-size: 25px;
+    font-size: 20px;
     width: 420px;
 }
 
@@ -66,6 +66,24 @@ div.content img {
     height: auto;
     justify-self: right; /* Centraliza as imagens horizontalmente */
 }
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+footer .buton button {
+    background-color: aliceblue;
+    border: none;
+    padding: 15px 25px;
+    font-size: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
+
 
 /* Estilos para dispositivos móveis */
 @media (max-width: 1500px) {
