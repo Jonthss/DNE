@@ -170,7 +170,7 @@
         /* --- CONTEÚDO --- */
         div.fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: center; margin-bottom: 20px; }
         div.image img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); background-color: #ddd; }
-        div.qrcode { display: flex; justify-content: flex-end; }
+        div.qrcode { display: flex; justify-content: center; }
         div.qrcode img { width: 100%; max-width: 160px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); background-color: white; padding: 5px; }
 
         div.content {
@@ -204,11 +204,6 @@
     <!-- Overlay do Menu -->
     <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <!-- Barra Superior (Apenas Logo) -->
-    <div class="top-bar">
-        <div class="logo">DNE DIGITAL</div>
-    </div>
-
     <!-- Menu Lateral (Escondido por padrão) -->
     <div class="menu-slide" id="menu">
         <div class="close-btn" onclick="toggleMenu()">×</div>
@@ -235,7 +230,7 @@
             <div class="card-front">
                 <div class="fotos">
                     <div class="image">
-                        <img src="images/Imagem do WhatsApp de 2025-04-25 à(s) 10.01.42_112c2f57.jpg" alt="Foto Perfil">
+                        <img src="images/Imagem do WhatsApp de 2025-04-25 à(s) 10.01.42_112c2f57.jpg" alt="Foto Perfil" ">
                     </div>
                     <div class="qrcode">
                         <img src="images/qr.png" alt="QR Code Pequeno">
