@@ -1,82 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=455, user-scalable=no">
-    <title>DNE - CARTEIRA DE ESTUDANTE</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DNE Digital - Clone</title>
+    
+    <!-- iOS Web App Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="DNE">
     <link rel="apple-touch-icon" href="images/loco.webp">
-</head>
-<body>
 
-    <div class="top-bar">
-        <div class="logo">
-            <img src="images/dnee.jpg" alt="Logo">
+    <!-- Importando Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importando Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Importando FontAwesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Configuração do Efeito 3D (Flip Card) */
+        .perspective-1000 {
+            perspective: 1000px;
+            perspective-origin: center center; /* Garante que a perspectiva seja centralizada */
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* Animação mais suave */
+            transform-style: preserve-3d;
+            transform-origin: center center; /* Garante que o eixo de rotação seja o centro exato */
+            will-change: transform; /* Otimiza a renderização para evitar pulos */
+        }
+
+        .card-container.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1; /* Garante ordem de empilhamento */
+        }
+        
+        .card-front {
+            z-index: 2; /* Garante que a frente comece em cima */
+        }
+
+        /* Fundo da Frente da Carteira (Estilo DNE) */
+        .bg-dne {
+            background: linear-gradient(135deg, #009c3b 0%, #006828 100%);
+            position: relative;
+        }
+
+        /* Efeito de Holograma/Segurança */
+        .hologram {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.0) 50%);
+            z-index: 10;
+            pointer-events: none;
+            animation: shine 4s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            20% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Textura de fundo sutil */
+        .pattern-bg {
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Esconder scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex justify-center items-center p-4">
+
+    <!-- Container do "App" -->
+    <div class="w-full max-w-md bg-white h-[850px] max-h-[95vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col relative border-4 border-gray-800">
+        
+        <!-- Barra de Status Simulada -->
+        <div class="bg-gray-900 text-white px-6 py-3 flex justify-between items-center text-xs">
+            <span>12:30</span>
+            <div class="flex gap-2">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
         </div>
-        <div class="menu-icon" onclick="toggleMenu()">
-            ☰
-        </div>
-        <div class="menu-slide" id="menu">
-            <div class="close-btn" onclick="toggleMenu()">×</div>
-            <ul>
-                <li><a href="index.html">Carteira</a></li>
-                <li><a href="confirmacao.html">Confirmação</a></li>
-                <li><a href="#">Sobre</a></li>
-                <li><a href="#">Ajuda</a></li>
-            </ul>
+
+        <!-- Cabeçalho do App -->
+        <header class="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-100">
+            <div>
+                <h1 class="text-xl font-bold text-gray-800">Minha Carteira</h1>
+                <p class="text-xs text-green-600 font-semibold flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Documento Ativo
+                </p>
+            </div>
+            <button class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-gray-100">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 p-6 flex flex-col items-center">
+            
+            <p class="text-sm text-gray-500 mb-4 text-center w-full">Toque no documento para ver o verso</p>
+
+            <!-- Container 3D da Carteira -->
+            <!-- Adicionado 'relative' e mantido aspect-ratio fixo -->
+            <div class="card-container relative w-full aspect-[1/1.58] max-w-[320px] perspective-1000 cursor-pointer group" onclick="toggleFlip(this)">
+                <div class="card-inner w-full h-full duration-500">
+                    
+                    <!-- FRENTE DA CARTEIRA -->
+                    <div class="card-front bg-dne pattern-bg text-white p-5 flex flex-col relative">
+                        <div class="hologram"></div>
+                        
+                        <!-- Cabeçalho Carteira -->
+                        <div class="flex justify-between items-start mb-4 relative z-20">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-white/20 p-1.5 rounded-lg backdrop-blur-sm">
+                                    <i class="fas fa-graduation-cap text-xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="font-bold text-sm leading-tight">DNE</h2>
+                                    <p class="text-[10px] opacity-80">Documento Nacional</p>
+                                </div>
+                            </div>
+                            <!-- Selo de Validacao -->
+                            <div class="bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-1 rounded shadow-lg transform rotate-2">
+                                2025
+                            </div>
+                        </div>
+
+                        <!-- Foto do Estudante -->
+                        <div class="flex justify-center mb-4 relative z-20">
+                            <div class="w-32 h-32 rounded-full border-4 border-white/30 shadow-xl overflow-hidden bg-gray-200">
+                                <!-- Placeholder Image -->
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=b6e3f4" alt="Foto do Estudante" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <!-- Dados do Estudante -->
+                        <div class="flex-1 flex flex-col gap-3 relative z-20 text-left">
+                            <div>
+                                <p class="text-[10px] uppercase text-green-100 tracking-wider">Nome do Estudante</p>
+                                <h3 class="font-bold text-lg text-white drop-shadow-md truncate">JOÃO DA SILVA SANTOS</h3>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <p class="text-[10px] uppercase text-green-100 tracking-wider">Instituição</p>
+                                    <p class="font-semibold text-sm truncate">USP - UNIV. SÃO PAULO</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase text-green-100 tracking-wider">Curso</p>
+                                    <p class="font-semibold text-sm truncate">Engenharia Civil</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2 mt-auto">
+                                <div>
+                                    <p class="text-[10px] uppercase text-green-100 tracking-wider">Nascimento</p>
+                                    <p class="font-medium text-sm">12/05/2001</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase text-green-100 tracking-wider">Validade</p>
+                                    <p class="font-bold text-sm text-yellow-300">31/03/2026</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rodapé Frente -->
+                        <div class="mt-4 pt-3 border-t border-white/20 flex justify-between items-end relative z-20">
+                            <span class="text-[10px] opacity-70">Lei nº 12.933/2013</span>
+                            <div class="text-right">
+                                <p class="text-[9px] opacity-70">Código de Uso</p>
+                                <p class="font-mono text-xs tracking-widest">A93F-22B1</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VERSO DA CARTEIRA -->
+                    <div class="card-back p-6 relative bg-white">
+                        <div class="absolute top-0 w-full h-2 bg-gradient-to-r from-green-600 to-green-400"></div>
+                        
+                        <h3 class="text-gray-800 font-bold mb-1">Validação Digital</h3>
+                        <p class="text-xs text-gray-500 mb-6 text-center">Apresente este código para garantir sua meia-entrada.</p>
+
+                        <!-- QR Code Container -->
+                        <div class="bg-white p-4 rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.1)] border border-gray-100 mb-6">
+                            <!-- Gerador de QR Code Simples via API ou Imagem Estática -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CertificadoValido_DNE_Estudante_Teste" alt="QR Code" class="w-40 h-40 mix-blend-multiply">
+                        </div>
+
+                        <div class="w-full space-y-3 text-left">
+                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider">Matrícula</p>
+                                <p class="text-sm font-mono font-bold text-gray-700">2023.1.004592</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider">RG / CPF</p>
+                                <p class="text-sm font-mono font-bold text-gray-700">12.345.678-9 / ***.456.789-**</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto pt-6 text-center">
+                            <div class="flex items-center justify-center gap-2 text-green-600 font-bold text-xs bg-green-50 py-2 px-4 rounded-full">
+                                <i class="fas fa-check-circle"></i>
+                                Documento Válido
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-8 flex gap-4 w-full max-w-[320px]">
+                <button onclick="document.querySelector('.card-container').click()" class="flex-1 bg-white border border-gray-200 text-gray-700 py-3 rounded-xl text-sm font-semibold shadow-sm hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                    <i class="fas fa-sync-alt"></i> Virar
+                </button>
+                <button class="flex-1 bg-green-600 text-white py-3 rounded-xl text-sm font-semibold shadow-lg shadow-green-200 hover:bg-green-700 transition flex items-center justify-center gap-2">
+                    <i class="fas fa-share-alt"></i> Compartilhar
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Navegação Inferior (Bottom Nav) -->
+        <nav class="bg-white border-t border-gray-100 px-6 py-3 flex justify-between items-center text-[10px] font-medium text-gray-400">
+            <a href="#" class="flex flex-col items-center gap-1 hover:text-green-600 transition">
+                <i class="fas fa-home text-lg"></i>
+                <span>Início</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 text-green-600">
+                <div class="bg-green-100 w-12 h-8 rounded-full flex items-center justify-center -mt-2 mb-1">
+                    <i class="fas fa-id-card text-lg"></i>
+                </div>
+                <span>Carteira</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 hover:text-green-600 transition">
+                <i class="fas fa-tag text-lg"></i>
+                <span>Clube</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 hover:text-green-600 transition">
+                <i class="fas fa-user text-lg"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+
+        <!-- Barra Home (iOS style) -->
+        <div class="bg-white h-4 w-full flex justify-center pb-2">
+            <div class="w-32 h-1 bg-gray-300 rounded-full"></div>
         </div>
     </div>
 
-    <header>
-        <img src="images/logo-dne-branco.webp" alt="dne" id="logo-dne">
-        <img src="images/unnamed.png" alt="anpg">
-    </header>
+    <script>
+        function toggleFlip(element) {
+            // Adiciona ou remove a classe 'flipped' para ativar a rotação CSS
+            element.classList.toggle('flipped');
+        }
 
-    <main>
-        <div class="fotos">
-            <div class="image">
-                <img src="images/Imagem do WhatsApp de 2025-04-25 à(s) 10.01.42_112c2f57.jpg" alt="perfil">
-            </div>
-
-            <div class="qrcode">
-                <img src="images/qr.png" alt="qr-code">
-            </div>
-        </div>  
-
-        <div class="content">
-            <p><strong>JÔNATHAS BARBOSA DE OLIVEIRA</strong></p>
-            
-            <p><strong>INST. DE ENSINO: </strong> Pathway WorldWide <br>
-            <strong>CURSO: </strong> Web and Software Development <br>
-            <strong>TIPO DE CURSO: </strong> Bacharelado </p>
-            
-            <p><strong>CPF: </strong>086.037.104-22 <br>
-            <strong>DATA DE NASC: </strong> 06/02/2001 <br>
-            <strong>VALIDADE: </strong> 31/03/2026</p>
-            <P><strong>CÓD. USO</strong> <br>
-                78G-AM4F6</P>
-            
-
-            <img src="images/2025.png" alt="2025">
-        </div>
-    </main>
-
-    <footer>
-            <div class="buton">
-            <button onclick="window.location.href='confirmacao.html';"><strong>Certificado</strong></button>
-            </div>
-    </footer>
-
+        // Previne zoom no duplo clique em mobile para melhorar a experiência de "app"
+        document.addEventListener('dblclick', function(event) {
+            event.preventDefault();
+        }, { passive: false });
+    </script>
 </body>
-<script>
-    function toggleMenu() {
-        var menu = document.getElementById("menu");
-        menu.classList.toggle("show");
-    }
-</script>
 </html>
